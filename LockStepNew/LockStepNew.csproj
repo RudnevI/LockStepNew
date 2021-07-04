@@ -200,8 +200,10 @@
     <Compile Include="Controllers\WebApi\BookGenreController.cs" />
     <Compile Include="Controllers\WebApi\BooksController.cs" />
     <Compile Include="Controllers\WebApi\BookVoteController.cs" />
+    <Compile Include="Controllers\WebApi\CheckController.cs" />
     <Compile Include="Controllers\WebApi\ChecksController.cs" />
     <Compile Include="Controllers\WebApi\GenresController.cs" />
+    <Compile Include="Controllers\WebApi\PayController.cs" />
     <Compile Include="Controllers\WebApi\PaymentsController.cs" />
     <Compile Include="Controllers\WebApi\PricesController.cs" />
     <Compile Include="Controllers\WebApi\ProductsController.cs" />
@@ -291,8 +293,10 @@
     <Folder Include="Views\BookGenre\" />
     <Folder Include="Views\Books\" />
     <Folder Include="Views\BookVote\" />
+    <Folder Include="Views\Check\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\Payments\" />
+    <Folder Include="Views\Pay\" />
     <Folder Include="Views\Prices\" />
     <Folder Include="Views\Products\" />
   </ItemGroup>
