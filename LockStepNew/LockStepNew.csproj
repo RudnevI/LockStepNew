@@ -288,6 +288,7 @@
     <Content Include="Views\Setup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\WebApi\ValidationServices\" />
     <Folder Include="Views\Authors\" />
     <Folder Include="Views\BookAuthor\" />
     <Folder Include="Views\BookGenre\" />

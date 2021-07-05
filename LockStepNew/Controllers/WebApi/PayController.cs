@@ -69,14 +69,15 @@ namespace LockStepNew.Controllers.WebApi
 
         private int? GetMaxId()
         {
+
             return _context.Books.Select(b => b.Id).Max();
         }
 
         private bool IsValidId(int id)
         {
             int? maxId = GetMaxId();
-            //TODO: Рассмотреть вариант с maxId равным null
-            return !(id <= 0 || id > maxId);
+            
+            return (maxId != null) && !(id <= 0 || id > maxId);
         }
 
        private bool IsValidsum(double sum)

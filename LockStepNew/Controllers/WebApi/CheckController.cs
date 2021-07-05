@@ -27,8 +27,8 @@ namespace LockStepNew.Controllers.WebApi
                 List<Price> prices = _context.Prices.Where(p => p.Book.Id == id).ToList();
 
                 if (prices == null || prices.Count == 0) return NotFound();
-                Price price = prices.Where(p => p.To == prices.Select(s => s.From).ToList().Max()).FirstOrDefault();
-                if (price == null) price = prices.Where(p => p.From == null).FirstOrDefault();
+                Price price = prices.FirstOrDefault(p => p.To == prices.Select(s => s.From).AsEnumerable().Max());
+                if (price == null) price = prices.FirstOrDefault(p => p.From == null);
 
                 return Ok(new { book.Name, price.Value });
             }
@@ -48,8 +48,8 @@ namespace LockStepNew.Controllers.WebApi
         private bool IsValidId(int id)
         {
             int? maxId = GetMaxId();
-            //TODO: Рассмотреть вариант с maxId равным null
-            return !(id <= 0 || id > maxId);
+          
+            return maxId!= null && !(id <= 0 || id > maxId);
         }
 
 
