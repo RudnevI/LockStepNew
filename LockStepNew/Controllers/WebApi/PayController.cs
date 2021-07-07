@@ -19,19 +19,21 @@ namespace LockStepNew.Controllers.WebApi
 
     
 
-        public async Task<IHttpActionResult> Get(int id, double sum, string email)
+        public async Task<IHttpActionResult> Get(int bookId, string paymentId, double sum, string email)
         {
-            if (!IsValidId(id) || !(await BookExists(id))) return NotFound();
+          
             if (!IsValidsum(sum)) return BadRequest();
 
-            Book book = await GetBook(id);
-            Check check = new Check() {Book=book, Email=email};
-            Payment payment = new Payment() { Book = book, Email = email, Amount = (decimal)sum };
+            Book book = await GetBook(bookId);
+            if (book is null) return BadRequest("Книга не найдена");
+
+            Check check = new Check() {Book=book, Email=email, IdRequest = paymentId};
+            Payment payment = new Payment() { Book = book, Email = email, Amount = (decimal)sum, IdRequest = paymentId };
 
             AddCheck(check);
             AddPayment(payment);
 
-            return Ok();
+            return Ok(new {product = book.Name, Price = payment.Amount});
 
 
 
@@ -50,21 +52,14 @@ namespace LockStepNew.Controllers.WebApi
             _context.SaveChanges();
         }
 
-        private async Task<bool> BookExists(int id)
-        {
-            return await GetBook(id) != null;
-        }
+    
 
         private async Task<Book> GetBook(int id)
         {
-            try
-            {
+           
                 return await _context.Books.FindAsync(id);
-            }
-            catch
-            {
-                return null;
-            }
+            
+           
         }
 
         private int? GetMaxId()
@@ -73,12 +68,7 @@ namespace LockStepNew.Controllers.WebApi
             return _context.Books.Select(b => b.Id).Max();
         }
 
-        private bool IsValidId(int id)
-        {
-            int? maxId = GetMaxId();
-            
-            return (maxId != null) && !(id <= 0 || id > maxId);
-        }
+  
 
        private bool IsValidsum(double sum)
         {

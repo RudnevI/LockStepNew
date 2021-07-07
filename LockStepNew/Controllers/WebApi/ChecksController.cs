@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace LockStepNew.Controllers.WebApi
 {
@@ -59,8 +60,9 @@ namespace LockStepNew.Controllers.WebApi
 
         private List<Check> GetChecks()
         {
+            
 
-            return _context.Checks.ToList();
+            return _context.Checks.Include(c => c.Book).ToList();
         }
 
         private int? GetMaxId()
