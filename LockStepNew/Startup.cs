@@ -12,6 +12,7 @@ namespace LockStepNew
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            SetupAuth();
         }
 
         private void SetupAuth()
@@ -32,6 +33,8 @@ namespace LockStepNew
             var checkUser = userManager.Create(user, userPassword);
             if (checkUser.Succeeded)
                 userManager.AddToRole(user.Id, "Admin");
+
+            
         }
     }
 }
