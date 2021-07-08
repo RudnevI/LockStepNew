@@ -30,7 +30,7 @@ namespace LockStepNew.Controllers.WebApi
                 Price price = prices.FirstOrDefault(p => p.To == prices.Select(s => s.From).AsEnumerable().Max());
                 if (price == null) price = prices.FirstOrDefault(p => p.From == null);
 
-                return Ok(new { book.Name, price.Value });
+                return Ok(price?.Value);
             }
             catch (Exception e)
             {

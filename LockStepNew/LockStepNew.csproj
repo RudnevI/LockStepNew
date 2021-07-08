@@ -63,6 +63,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -225,6 +228,7 @@
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\WebApi\AuthorsController.cs" />
     <Compile Include="Controllers\WebApi\BookAuthorController.cs" />
@@ -331,6 +335,11 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Payments\Create.cshtml" />
+    <Content Include="Views\Payments\Delete.cshtml" />
+    <Content Include="Views\Payments\Details.cshtml" />
+    <Content Include="Views\Payments\Edit.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\WebApi\ValidationServices\" />
@@ -340,7 +349,6 @@
     <Folder Include="Views\BookVote\" />
     <Folder Include="Views\Check\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Payments\" />
     <Folder Include="Views\Pay\" />
     <Folder Include="Views\Prices\" />
     <Folder Include="Views\Products\" />
