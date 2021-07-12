@@ -15,6 +15,7 @@ namespace LockStepNew
             SetupAuth();
         }
 
+
         private void SetupAuth()
         {
             var context = new ApplicationDbContext();
