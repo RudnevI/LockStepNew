@@ -60,8 +60,8 @@ namespace LockStepNew
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "1069847840717-joqo920tvr7hu4kj5jof6grgl7bj780h.apps.googleusercontent.com",
-                ClientSecret = "4U8kMvRl-m9qMSMWCHIn9PDw"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
     }
