@@ -13,6 +13,8 @@ namespace PingApp.Services
         const string host = @"https://localhost:44369/";
         private readonly static ILog log = LogManager.GetLogger("LOGGER");
 
+        
+
         static TaskService()
         {
             XmlConfigurator.Configure();
@@ -22,8 +24,15 @@ namespace PingApp.Services
         {
             return Task.Factory.StartNew(async () =>
             {
+                double successCount;
+                double failureCount;
+                double overallCount;
                 while (true)
                 {
+                    successCount = 0;
+                    failureCount = 0;
+                    overallCount = 0;
+
                     for (int i = 1; i <= 1000; i++)
                     {
                         var url = $"{host}api/Check/{i}";
@@ -35,14 +44,17 @@ namespace PingApp.Services
                                 var text = await response.Content.ReadAsStringAsync();
                                 Console.WriteLine(text);
                                 log.Info($"success response: {text}");
-
+                                successCount++;
+                                
                             }
                             else
                             {
                                 var text1 = await response.Content.ReadAsStringAsync();
                                 Console.WriteLine(text1);
                                 log.Info($"error response: {text1}");
+                                failureCount++;
                             }
+                            overallCount++;
                         }
                         catch (Exception e)
                         {
@@ -50,6 +62,11 @@ namespace PingApp.Services
                         }
 
                     }
+
+                    Console.WriteLine($"Success: {successCount/overallCount};");
+
+                    Console.WriteLine($"Failure: {failureCount/overallCount};");
+
                     Thread.Sleep(10000);
                 }
             });

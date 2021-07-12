@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LockStepNew.Tests", "LockSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingApp", "PingApp\PingApp.csproj", "{E2067CBC-E289-4A97-A2B9-CD2D9B9FB058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LockStep.Library.Domain", "..\..\..\Documents\ASP_MVC\LockStep_OLD\LockStep.Library.Domain\LockStep.Library.Domain.csproj", "{A91A22C7-9E0C-48B7-979D-6D59505978CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LockStep.Library.Domain", "..\..\..\source\repos\LockStep_OLD\LockStep.Library.Domain\LockStep.Library.Domain.csproj", "{A91A22C7-9E0C-48B7-979D-6D59505978CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
