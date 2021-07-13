@@ -7,24 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LockStep.Library.Domain;
-using LockStep.Library.Domain.DTO.Common;
 using LockStepNew.Models;
 
 namespace LockStepNew.Controllers
 {
-    public class BooksController : Controller
+    public class AuthorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Books
+        // GET: Authors
         
         public ActionResult Index()
         {
-            List<Book> books = db.Books.ToList();
-            return View(books.Select(b => new CreateBookVM() { Name=b.Name}));
+            return View(db.Authors.ToList());
         }
 
-        // GET: Books/Details/5
+        // GET: Authors/Details/5
         [Authorize(Roles = "Admin, Manager")]
         public ActionResult Details(int? id)
         {
@@ -32,79 +30,73 @@ namespace LockStepNew.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            CreateBookVM viewModel = new CreateBookVM { Name = book.Name };
-            if (book == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(viewModel);
+            return View(author);
         }
 
-        // GET: Books/Create
+        // GET: Authors/Create
         [Authorize(Roles = "Admin, Manager")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Books/Create
+        // POST: Authors/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Manager")]
-        public ActionResult Create([Bind(Include = "Name")] CreateBookVM book)
+        public ActionResult Create([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Books.Add(new Book() {Name=book.Name});
+                db.Authors.Add(author);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            
-
-            return View(book);
+            return View(author);
         }
 
-        // GET: Books/Edit/5
+        // GET: Authors/Edit/5
         [Authorize(Roles = "Admin, Manager")]
         public ActionResult Edit(int? id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-
-            CreateBookVM viewModel = new CreateBookVM() { Name = book.Name };
-            if (book == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(viewModel);
+            return View(author);
         }
 
-        // POST: Books/Edit/5
+        // POST: Authors/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Manager")]
-        public ActionResult Edit([Bind(Include = "Name")] CreateBookVM book)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(new Book() { Name=book.Name}).State = EntityState.Modified;
+                db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(book);
+            return View(author);
         }
 
-        // GET: Books/Delete/5
+        // GET: Authors/Delete/5
         [Authorize(Roles = "Admin, Manager")]
         public ActionResult Delete(int? id)
         {
@@ -112,24 +104,22 @@ namespace LockStepNew.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            CreateBookVM viewModel = new CreateBookVM() { Name = book.Name };
-            if (book == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(viewModel);
+            return View(author);
         }
 
-        // POST: Books/Delete/5
+        // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Book book = db.Books.Find(id);
-            
-            db.Books.Remove(book);
+            Author author = db.Authors.Find(id);
+            db.Authors.Remove(author);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
