@@ -33,7 +33,7 @@ namespace PingApp.Services
                     failureCount = 0;
                     overallCount = 0;
 
-                    for (int i = 1; i <= 1000; i++)
+                    for (int i = 1; i <= 3; i++)
                     {
                         var url = $"{host}api/Check/{i}";
                         try

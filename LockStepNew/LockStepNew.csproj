@@ -70,6 +70,9 @@
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
@@ -144,9 +147,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
@@ -261,6 +261,10 @@
     <Compile Include="Migrations\202107071507540_dto.cs" />
     <Compile Include="Migrations\202107071507540_dto.Designer.cs">
       <DependentUpon>202107071507540_dto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107130828055_roles, users.cs" />
+    <Compile Include="Migrations\202107130828055_roles, users.Designer.cs">
+      <DependentUpon>202107130828055_roles, users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -379,9 +383,12 @@
     <EmbeddedResource Include="Migrations\202107071507540_dto.resx">
       <DependentUpon>202107071507540_dto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107130828055_roles, users.resx">
+      <DependentUpon>202107130828055_roles, users.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\repos\LockStep_OLD\LockStep.Library.Domain\LockStep.Library.Domain.csproj">
+    <ProjectReference Include="..\LockStep.Library.Domain\LockStep.Library.Domain.csproj">
       <Project>{a91a22c7-9e0c-48b7-979d-6d59505978cd}</Project>
       <Name>LockStep.Library.Domain</Name>
     </ProjectReference>
