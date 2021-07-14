@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LockStepNew.Models;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +11,13 @@ namespace LockStepNew.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        ApplicationDbContext _context = new ApplicationDbContext();
+        public ActionResult Index(int? page)
         {
-            return View();
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            var bookCollection = _context.Books.OrderBy(b => b.Id).ToList().ToPagedList(pageNumber, pageSize);
+            return View(_context.Books.OrderBy(b => b.Id).ToList().ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult About()

@@ -1,4 +1,8 @@
-﻿@{
+﻿@model PagedList.IPagedList<LockStep.Library.Domain.Book>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -29,3 +33,29 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+@{
+    int counter = 0;
+}
+@foreach (var item in Model)
+{
+
+
+    {Html.RenderPartial("PartialBook", item);}
+
+
+
+    @*@{
+        counter++;
+        if (counter == 5)
+        {
+            counter = 0;
+
+        }
+    }*@
+
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

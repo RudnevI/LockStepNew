@@ -16,7 +16,11 @@ namespace LockStepNew.Scheduler.Jobs
 
         public void Start()
         {
-            List<Payment> unprocessedPayments = context.Payments.Include("Book").Where(p => p.Status == 0).ToList();
+            List<Payment> unprocessedPayments = context
+                .Payments
+                .Include("Book")
+                .Where(p => p.Status == 0)
+                .ToList();
 
             EmailServicePayments service = new EmailServicePayments();
 

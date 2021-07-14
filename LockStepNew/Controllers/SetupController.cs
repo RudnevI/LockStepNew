@@ -19,11 +19,48 @@ namespace LockStepNew.Controllers
         }
         // GET: Setup
         public ActionResult Index()
+
         {
             ViewBag.IsEmptyAuthors = !_context.Authors.Any();
             ViewBag.IsEmptyGenres = !_context.Genres.Any();
             ViewBag.IsEmptyBooks = !_context.Books.Any();
             ViewBag.IsEmptyPrices = !_context.Prices.Any();
+
+            string path = @"C:\Users\РудневИ.NEW\Documents\LockStepNew\LockStepNew\LockStepNew\files\";
+            if (_context.Books.ToList().Count < 100) 
+            {
+                var lines = System.IO.File.ReadAllLines(path + "books.csv");
+
+                foreach (var line in lines)
+                {
+                    _context.Books.Add(new Book { Name = line });
+                }
+                _context.SaveChanges();
+
+            }
+
+            if(_context.Authors.ToList().Count < 100) 
+            {
+                var lines = System.IO.File.ReadAllLines(path + "authors.csv");
+
+                foreach (var line in lines)
+                {
+                    _context.Authors.Add(new Author { Name = line});
+                }
+                _context.SaveChanges();
+            }
+
+            if (_context.Genres.ToList().Count < 100)
+            {
+                var lines = System.IO.File.ReadAllLines(path + "genres.csv");
+
+                foreach (var line in lines)
+                {
+                    _context.Genres.Add(new Genre { Name = line });
+                }
+                _context.SaveChanges();
+            }
+
             return View();
         }
         [HttpPost]
@@ -43,9 +80,11 @@ namespace LockStepNew.Controllers
             }
             if (!string.IsNullOrWhiteSpace(create_books))
             {
-                _context.Books.Add(new Book { Name = "Тестовая книга 1" });
+                /*_context.Books.Add(new Book { Name = "Тестовая книга 1" });
                 _context.Books.Add(new Book { Name = "Тестовая книга 2" });
-                _context.Books.Add(new Book { Name = "Тестовая книга 3" });
+                _context.Books.Add(new Book { Name = "Тестовая книга 3" });*/
+
+                
             }
             var ok = SafeSave();
             if (ok != "ok")
