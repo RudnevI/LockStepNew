@@ -14,7 +14,8 @@ namespace LockStepNew.Controllers.WebApi
     {
 
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
-        public IHttpActionResult Get(){
+        public IHttpActionResult Get()
+        {
 
             try
             {
@@ -29,9 +30,10 @@ namespace LockStepNew.Controllers.WebApi
             }
         }
 
-        public async Task<IHttpActionResult>Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            try {
+            try
+            {
                 if (!AuthorsExist()) return BadRequest();
                 if (!IsValidId(id)) return BadRequest();
                 if (!AuthorExists(id)) return NotFound();
@@ -42,35 +44,35 @@ namespace LockStepNew.Controllers.WebApi
             catch (Exception e)
             {
                 return InternalServerError(e);
-             }
+            }
         }
 
         private bool AuthorExists(int id)
         {
-            return !( _context.Authors.Find(id) is null);
+            return !(_context.Authors.Find(id) is null);
         }
 
-        private  bool AuthorsExist()
+        private bool AuthorsExist()
         {
-            return  _context.Authors.Count() != 0;
+            return _context.Authors.Count() != 0;
         }
 
-        private  List<Author> GetAuthors()
+        private List<Author> GetAuthors()
         {
-            
+
             return _context.Authors.ToList();
         }
 
         private int? GetMaxId()
         {
             return _context.Authors.Count();
-        } 
-       private bool IsValidId(int id)
+        }
+        private bool IsValidId(int id)
         {
             return id > 0 && id <= GetMaxId();
         }
 
 
-        
+
     }
 }

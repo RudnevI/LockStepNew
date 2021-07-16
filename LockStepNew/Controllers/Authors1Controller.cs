@@ -1,34 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using LockStep.Library.Domain;
-using LockStepNew.Models;
 
 namespace LockStepNew.Controllers
 {
     public class Authors1Controller : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IAuthorRepository _repo;
+
+        public Authors1Controller(IAuthorRepository repo)
+        {
+            this._repo = repo;
+        }
+
+
 
         // GET: Authors1
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Authors.ToList());
+            return View(await _repo.Get());
         }
 
         // GET: Authors1/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = await _repo.GetById(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -47,12 +48,12 @@ namespace LockStepNew.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Author author)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(author);
-                db.SaveChanges();
+                await _repo.Insert(author);
+              
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +61,13 @@ namespace LockStepNew.Controllers
         }
 
         // GET: Authors1/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = await _repo.GetById(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -79,25 +80,24 @@ namespace LockStepNew.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Author author)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(author).State = EntityState.Modified;
-                db.SaveChanges();
+               await _repo.Update(author);
                 return RedirectToAction("Index");
             }
             return View(author);
         }
 
         // GET: Authors1/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = await _repo.GetById(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -108,21 +108,14 @@ namespace LockStepNew.Controllers
         // POST: Authors1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Author author = db.Authors.Find(id);
-            db.Authors.Remove(author);
-            db.SaveChanges();
+            Author author = await _repo.GetById(id);
+            await _repo.Delete(author);
+           
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

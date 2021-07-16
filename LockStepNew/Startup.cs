@@ -6,7 +6,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using System.Linq;
-
+using Autofac;
+using Autofac.Integration.Mvc;
+using System.Web.Mvc;
 
 [assembly: OwinStartupAttribute(typeof(LockStepNew.Startup))]
 namespace LockStepNew
@@ -22,6 +24,33 @@ namespace LockStepNew
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
+
+            var builder = new ContainerBuilder();
+
+
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
+            builder.RegisterType<ApplicationDbContext>();
+            builder.RegisterType<AuthorRepository>().As<IAuthorRepository>();
+            builder.RegisterType<BookRepository>().As<IBookRepository>();
+            builder.RegisterType<GenreRepository>().As<IGenreRepository>();
+            builder.RegisterType<BookAuthorRepository>().As<IBookAuthorRepository>();
+            builder.RegisterType<BookGenreRepository>().As<IBookGenreRepository>();
+            builder.RegisterType<BookCommentRepository>().As<IBookCommentRepository>();
+            builder.RegisterType<BookVoteRepository>().As<IBookVoteRepository>();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            builder.RegisterType<PriceRepository>().As<IPriceRepository>();
+
+
+
+
+
+
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            app.UseAutofacMiddleware(container);
+            app.UseAutofacMvc();
 
             new JobFactory().ScheduleJob();
         }

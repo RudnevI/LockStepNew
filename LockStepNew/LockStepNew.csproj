@@ -48,6 +48,9 @@
     <Reference Include="Autofac, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.6.0.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.6.0.0\lib\net472\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac.Integration.Mvc.Owin, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.Owin.6.0.0\lib\net472\Autofac.Integration.Mvc.Owin.dll</HintPath>
     </Reference>
@@ -261,6 +264,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAuthorRepository.cs" />
+    <Compile Include="Interfaces\IBookAuthorRepository.cs" />
+    <Compile Include="Interfaces\IBookCommentRepository.cs" />
+    <Compile Include="Interfaces\IBookGenreRepository.cs" />
+    <Compile Include="Interfaces\IBookRepository.cs" />
+    <Compile Include="Interfaces\IBookVoteRepository.cs" />
+    <Compile Include="Interfaces\ICheckRepository.cs" />
+    <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\IGenreRepository.cs" />
+    <Compile Include="Interfaces\IPaymentRepository.cs" />
+    <Compile Include="Interfaces\IPriceRepository.cs" />
+    <Compile Include="Interfaces\IProductRepository.cs" />
     <Compile Include="Migrations\202107020823134_initial.cs" />
     <Compile Include="Migrations\202107020823134_initial.Designer.cs">
       <DependentUpon>202107020823134_initial.cs</DependentUpon>
@@ -286,6 +301,18 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AuthorRepository.cs" />
+    <Compile Include="Repositories\BookAuthorRepository.cs" />
+    <Compile Include="Repositories\BookCommentRepository.cs" />
+    <Compile Include="Repositories\BookGenreRepository.cs" />
+    <Compile Include="Repositories\BookRepository.cs" />
+    <Compile Include="Repositories\BookVoteRepository.cs" />
+    <Compile Include="Repositories\CheckRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\PriceRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Scheduler\JobFactory.cs" />
     <Compile Include="Scheduler\Jobs\DefaultJob.cs" />
     <Compile Include="Scheduler\Services\EmailServicePayments.cs" />
